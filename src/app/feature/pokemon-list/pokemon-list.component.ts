@@ -1,9 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   debounceTime,
   distinctUntilChanged,
   filter,
   fromEvent,
+  Subscription,
   tap,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -14,15 +22,22 @@ import { PokemonService, TPokeMonDetails } from '../pokemon.service';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss'],
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchPokemon') searchPokemon!: ElementRef;
   public pokemonData!: TPokeMonDetails[];
   private orginalData!: TPokeMonDetails[];
   public imageBaseUrl = environment.imageUrl;
+  public sub!: Subscription;
+
   constructor(private pokemonService: PokemonService) {}
 
+  ngOnDestroy(): void {
+    console.log('OnDestroy');
+    this.sub.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this.pokemonService
+    this.sub = this.pokemonService
       .getPokemonDetails()
       .subscribe(
         (res: TPokeMonDetails[]) => (
@@ -30,8 +45,9 @@ export class PokemonListComponent implements OnInit {
         )
       );
   }
-  ngAfterViewInit() {
-    fromEvent(this.searchPokemon.nativeElement, 'keyup')
+
+  ngAfterViewInit(): void {
+    this.sub = fromEvent(this.searchPokemon.nativeElement, 'keyup')
       .pipe(
         filter(Boolean),
         debounceTime(700),

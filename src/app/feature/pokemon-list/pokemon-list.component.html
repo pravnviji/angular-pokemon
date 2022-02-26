@@ -1,10 +1,10 @@
-<div class="text-center p-3 mb-3 mt-3 bold fs-1">Pokemon List</div>
+<div class="text-center p-3 mb-3 mt-3 bold fs-1 text-primary">Pokemon List</div>
 
 <div class="container">
   <input
-    type="text "
-    class="my-2 h-25 d-inline-block w-50"
-    placeholder="Search Pokemon"
+    type="text"
+    class="my-2 h-35 p-2 d-inline-block w-50"
+    placeholder="Search For Your Pokemon"
     #searchPokemon
   />
 
@@ -21,7 +21,7 @@
   <ng-template #pokemonDataTemplate>
     <div class="d-flex p-2 justify-content-center row border-dark">
       <div
-        class="col-md-3 text-center border border-dark p-2"
+        class="col-md-2 text-center border border-dark p-2"
         *ngFor="let pokemon of pokemonData"
       >
         <img
@@ -30,7 +30,7 @@
           alt="..."
           [src]="imageBaseUrl + pokemon?.id + '.svg'"
         />
-        <span class="dropdown-item my-2">{{
+        <span class="fs-7 dropdown-item my-2">{{
           pokemon?.name?.toLowerCase()
         }}</span>
       </div>
@@ -40,7 +40,7 @@
     <div
       class="d-flex p-2 justify-content-center bd-highlight bg-info mx-3 my-3"
     >
-      Please search for other pokemon
+      Please Search For Other Pokemon
     </div>
   </ng-template>
 </div>
