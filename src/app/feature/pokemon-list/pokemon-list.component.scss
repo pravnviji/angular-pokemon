@@ -1,6 +1,30 @@
+@import "../../../styles.scss";
 :host .app-pokemon-list {
-  &__img {
-    height: 13vh;
-    width: 11vw;
+  &__xl,
+  &__lg {
+    &__img {
+      @include base_img(11vw, 13vh);
+    }
+    &__badge {
+      @include base_badge(-13vh, 12vw);
+    }
+    &__text {
+      @include base_text(60%);
+    }
+  }
+
+  &__md,
+  &__sm,
+  &__xs {
+    &__img {
+      @include base_img(25vw, 15vh);
+    }
+    &__badge {
+      @include base_badge(-15vh, null);
+    }
+
+    &__text {
+      @include base_text(80%);
+    }
   }
 }

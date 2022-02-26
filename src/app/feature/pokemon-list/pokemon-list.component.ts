@@ -14,6 +14,7 @@ import {
   Subscription,
   tap,
 } from 'rxjs';
+import { MediaObserver } from '@angular/flex-layout';
 import { environment } from 'src/environments/environment';
 import { PokemonService, TPokeMonDetails } from '../pokemon.service';
 
@@ -24,12 +25,17 @@ import { PokemonService, TPokeMonDetails } from '../pokemon.service';
 })
 export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchPokemon') searchPokemon!: ElementRef;
-  public pokemonData!: TPokeMonDetails[];
   private orginalData!: TPokeMonDetails[];
+
+  public pokemonData!: TPokeMonDetails[];
   public imageBaseUrl = environment.imageUrl;
   public sub!: Subscription;
+  deviceSz!: string;
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private observableMedia: MediaObserver
+  ) {}
 
   ngOnDestroy(): void {
     console.log('OnDestroy');
@@ -47,6 +53,17 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.onSearchPokemon();
+    this.getDeviceDetails();
+  }
+
+  getDeviceDetails(): void {
+    this.observableMedia.asObservable().subscribe((change) => {
+      this.deviceSz = change[0].mqAlias;
+    });
+  }
+
+  onSearchPokemon(): void {
     this.sub = fromEvent(this.searchPokemon.nativeElement, 'keyup')
       .pipe(
         filter(Boolean),

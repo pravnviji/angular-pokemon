@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@mixin base_badge($mt, $ml) {
+  position: absolute;
+  color: black;
+  display: block;
+  font-size: 0.8rem;
+  margin-top: $mt;
+  margin-left: $ml;
+}
+
+@mixin base_img($wd, $hg) {
+  width: $wd;
+  height: $hg;
+}
+
+@mixin base_text($wd) {
+  width: $wd;
+}

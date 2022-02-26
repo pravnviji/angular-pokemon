@@ -3,7 +3,11 @@
 <div class="container">
   <input
     type="text"
-    class="my-2 h-35 p-2 d-inline-block w-50"
+    [ngClass]="
+      'my-2 h-35 p-2 d-inline-block app-pokemon-list__' +
+      this.deviceSz +
+      '__text'
+    "
     placeholder="Search For Your Pokemon"
     #searchPokemon
   />
@@ -25,13 +29,16 @@
         *ngFor="let pokemon of pokemonData"
       >
         <img
-          class="app-pokemon-list__img"
+          [ngClass]="'app-pokemon-list__' + this.deviceSz + '__img'"
           loading="lazy"
           alt="..."
           [src]="imageBaseUrl + pokemon?.id + '.svg'"
         />
-        <span class="fs-7 dropdown-item my-2">{{
-          pokemon?.name?.toLowerCase()
+        <span [ngClass]="'app-pokemon-list__' + this.deviceSz + '__badge'">{{
+          pokemon?.id
+        }}</span>
+        <span class="fs-7 dropdown-item my-2 text-capitalize">{{
+          pokemon?.name
         }}</span>
       </div>
     </div>
