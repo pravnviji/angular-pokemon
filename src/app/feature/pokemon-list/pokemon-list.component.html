@@ -1,6 +1,46 @@
-<div class="dropdown-menu">
-  <li *ngFor="let pokemonData of pokemonData$ | async">
-    <img [src]="imageBaseUrl + pokemonData?.id + '.svg'" />
-    <a class="dropdown-item">{{ pokemonData?.name?.toLowerCase() }}</a>
-  </li>
+<div class="text-center p-3 mb-3 mt-3 bold fs-1">Pokemon List</div>
+
+<div class="container">
+  <input
+    type="text "
+    class="my-2 h-25 d-inline-block w-50"
+    placeholder="Search Pokemon"
+    #searchPokemon
+  />
+
+  <ng-container
+    [ngTemplateOutlet]="
+      pokemonData && pokemonData?.length !== 0
+        ? pokemonDataTemplate
+        : noDataTemplate
+    "
+    [ngTemplateOutletContext]="{ pokemonData: pokemonData }"
+  >
+  </ng-container>
+
+  <ng-template #pokemonDataTemplate>
+    <div class="d-flex p-2 justify-content-center row border-dark">
+      <div
+        class="col-md-3 text-center border border-dark p-2"
+        *ngFor="let pokemon of pokemonData"
+      >
+        <img
+          class="app-pokemon-list__img"
+          loading="lazy"
+          alt="..."
+          [src]="imageBaseUrl + pokemon?.id + '.svg'"
+        />
+        <span class="dropdown-item my-2">{{
+          pokemon?.name?.toLowerCase()
+        }}</span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #noDataTemplate>
+    <div
+      class="d-flex p-2 justify-content-center bd-highlight bg-info mx-3 my-3"
+    >
+      Please search for other pokemon
+    </div>
+  </ng-template>
 </div>
