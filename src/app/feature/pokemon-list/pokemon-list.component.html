@@ -1,0 +1,6 @@
+<div class="dropdown-menu">
+  <li *ngFor="let pokemonData of pokemonData$ | async">
+    <img [src]="imageBaseUrl + pokemonData?.id + '.svg'" />
+    <a class="dropdown-item">{{ pokemonData?.name?.toLowerCase() }}</a>
+  </li>
+</div>
