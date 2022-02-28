@@ -82,7 +82,7 @@ describe('PokemonService', () => {
     reqMock.flush(errorData);
   });
 
-  it('transformData() should return transform Data ', () => {
+  it('transformData() should return transform Data and result should be equal ', () => {
     const res: TPokeMonDetails[] = [
       { name: 'dragonite', id: '149' },
       { name: 'mewtwo', id: '150' },

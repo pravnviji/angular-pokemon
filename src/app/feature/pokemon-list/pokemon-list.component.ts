@@ -25,7 +25,7 @@ import { PokemonService, TPokeMonDetails } from '../pokemon.service';
 })
 export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchPokemon') searchPokemon!: ElementRef;
-  private orginalData!: TPokeMonDetails[];
+  public orginalData!: TPokeMonDetails[];
 
   public pokemonData!: TPokeMonDetails[];
   public imageBaseUrl = environment.imageUrl;
