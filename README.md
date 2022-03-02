@@ -12,6 +12,12 @@ This App was generated with Angular CLI version 13.2.2. It deals with Listing ou
 - Start server --> `ng serve` --> Application will start run in https://localhost:4200
 - Check Test coverage --> `npm run test`
 
+## Tech Used 👨‍💻
+
+- Angular 13.2.2
+- Jasmine & Karma
+- API Used - https://pokeapi.co/api/v2/pokemon
+
 ## Task 📋
 
 1. Get original 151 generation pokemon
