@@ -1,6 +1,6 @@
 # 🔥 Angular Pokemon 🔥
 
-This App was generated with Angular CLI version 13.2.2. It deals with Listing out Pokemon Character's with image.
+This App was generated with Angular CLI version 13.2.2. It deals with listing out 151 Pokemon Character's with spirite images.
 
 
 <img width="600" alt="Screenshot 2022-02-26 at 6 23 11 PM" src="https://user-images.githubusercontent.com/2680132/156371171-694f353c-20cd-4b05-8984-53f89dc61c4d.png">
