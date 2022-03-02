@@ -59,6 +59,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getDeviceDetails(): void {
     this.observableMedia.asObservable().subscribe((change) => {
+      console.log('getting device data', change);
       this.deviceSz = change[0].mqAlias;
     });
   }

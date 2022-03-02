@@ -92,15 +92,4 @@ describe('PokemonService', () => {
     );
     expect(req).toEqual(res);
   });
-  it('handleError() should handle error inside ', () => {
-    const errorData: HttpErrorResponse = new HttpErrorResponse({
-      error: {},
-      status: 500,
-      url: baseUrl + maxLimit,
-      statusText: 'Bad Request',
-    });
-
-    const req = serviceTest.handleError(errorData);
-    expect(req).toThrowError;
-  });
 });

@@ -1,19 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of, tap } from 'rxjs';
+import { map, of, tap } from 'rxjs';
 import { PokemonService } from '../pokemon.service';
 
 import { PokemonListComponent } from './pokemon-list.component';
-import { MediaObserver } from '@angular/flex-layout';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { By } from '@angular/platform-browser';
-
-let mockFlex = jasmine.createSpyObj({
-  asObservable() {
-    return of({
-      mqAlias: 'xl',
-    });
-  },
-  isActive: true,
-});
+import * as rxjs from 'rxjs';
 
 class PokemonServiceStub {
   mockDataRes = [
@@ -43,7 +35,11 @@ describe('PokemonListComponent', () => {
   let component: PokemonListComponent;
   let fixture: ComponentFixture<PokemonListComponent>;
   let observableMedia: MediaObserver;
-
+  const mockFlex = of({
+    // create an Observable that returns a desired result
+    mqAlias: 'xs',
+    mediaQuery: 'test mQ',
+  });
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PokemonListComponent],
@@ -62,6 +58,7 @@ describe('PokemonListComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PokemonListComponent);
+    observableMedia = fixture.debugElement.injector.get(MediaObserver);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -90,51 +87,51 @@ describe('PokemonListComponent', () => {
     expect(component.getDeviceDetails).toHaveBeenCalledTimes(1);
   });
 
-  xit('getDeviceDetails() should set device Alias', () => {
-    console.log(
-      '********************** getDeviceDetails() *********************'
-    );
-    component.ngAfterViewInit();
-    observableMedia.asObservable().subscribe((res) => {
-      console.log(
-        '********************** checking observable *********************'
-      );
-      expect(component.deviceSz).toEqual(res[0].mqAlias);
-    });
-  });
-
-  xit('onSearchPokemon() result should make a copy into originalData and pokeMonData', () => {
-    console.log(' *********** onSearchPokemon() ************');
-    console.log(' *********** Fixture detect changes ************');
+  it('onSearchPokemon() result should filter the value', () => {
+    let element = fixture.debugElement.query(By.css('[name="searchPokemon"]'));
+    element.nativeElement.value = 'mewtwo';
     const mock = [
       { name: 'dragonite', id: '149' },
       { name: 'mewtwo', id: '150' },
     ];
-    // component.pokemonData = mock;
-    //component.orginalData = mock;
-    component.searchPokemon.nativeElement.value = 'mewtwo';
+
     const event = new KeyboardEvent('keyup', {
       bubbles: true,
+      key: 'mewtwo',
       cancelable: true,
       shiftKey: false,
     });
+
+    element.triggerEventHandler('keypress', { key: '' });
     fixture.detectChanges();
-    console.log('  component.pokemonData', component.pokemonData);
-    let element = fixture.debugElement.query(By.css('input'));
-    console.log('input pokemon', element);
-    element.triggerEventHandler('keypress', event);
-    console.log('  input', element.nativeElement);
 
-    console.log(' nameInput.nativeElement.value ', element.nativeElement.value);
+    console.log('Native element', element.nativeElement.value);
 
-    console.log('Pokemondata', component.pokemonData);
-    console.log('original Data', component.orginalData);
     expect(
-      fixture.debugElement.query(By.css('input')).nativeElement.innerText
+      fixture.debugElement.query(By.css('[name="searchPokemon"]')).nativeElement
+        .value
     ).toEqual('mewtwo');
+
+    console.log(component.pokemonData);
+    console.log(component.orginalData);
+
+    expect(component.pokemonData).toEqual(mock);
+    expect(component.orginalData).toEqual(mock);
   });
 
-  function createEnterKeyPress() {
-    return { keyCode: 13, preventDefault: jasmine.createSpy('preventDefault') };
-  }
+  it('getDeviceDetails() should set device Alias', () => {
+    component.ngOnInit();
+    component.ngAfterViewInit();
+    fixture.detectChanges();
+    console.log(
+      '********************** getDeviceDetails() *********************'
+    );
+    console.log('Component device size', component.deviceSz);
+    observableMedia.asObservable().subscribe((change: MediaChange[]) => {
+      const res: any = change;
+      const finalRes: string = res['mqAlias'];
+      console.log('new res spec', finalRes);
+      expect(finalRes).toEqual('xl');
+    });
+  });
 });
