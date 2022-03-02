@@ -33,3 +33,9 @@ This App was generated with Angular CLI version 13.2.2. It deals with listing ou
 <img width="300" height="600" style="padding-right:10px" alt="Screenshot 2022-02-26 at 6 23 57 PM" src="https://user-images.githubusercontent.com/2680132/155839674-897185ef-0f29-41dd-a8fc-78c47c2edd74.png">&nbsp;&nbsp;
 <img width="300" height="600" alt="Screenshot 2022-02-26 at 6 24 04 PM" src="https://user-images.githubusercontent.com/2680132/155839675-a431a8c7-1fe8-464b-b001-de5c9e51034a.png">
 </div>
+
+## Test Coverage
+
+<img width="600" alt="Screenshot 2022-03-02 at 11 46 05 PM" src="https://user-images.githubusercontent.com/2680132/156396866-6fd5d073-1217-4952-b0cd-8d9b8b5d80e5.png">
+
+
