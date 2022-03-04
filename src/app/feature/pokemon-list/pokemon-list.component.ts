@@ -65,6 +65,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSearchPokemon(): void {
+    const regEx = /\d/;
     this.sub = fromEvent(this.searchPokemon.nativeElement, 'keyup')
       .pipe(
         filter(Boolean),
@@ -73,11 +74,19 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
         tap((text) => {
           console.log('Value enter ' + this.searchPokemon.nativeElement.value);
 
-          this.pokemonData = this.pokemonData.filter((data) =>
-            data.name
-              .toLowerCase()
-              .includes(this.searchPokemon.nativeElement.value)
-          );
+          if (regEx.test(this.searchPokemon.nativeElement.value)) {
+            this.pokemonData = this.pokemonData.filter((data) => {
+              return data.id === this.searchPokemon.nativeElement.value;
+            });
+          } else {
+            this.pokemonData = this.pokemonData.filter((data) => {
+              return data.name
+                .toLowerCase()
+                .includes(this.searchPokemon.nativeElement.value);
+            });
+          }
+          console.log('Final data');
+          console.log(this.pokemonData);
           if (this.searchPokemon.nativeElement.value === '')
             this.pokemonData = this.orginalData;
         })

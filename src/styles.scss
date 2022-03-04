@@ -16,3 +16,6 @@
 @mixin base_text($wd) {
   width: $wd;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
