@@ -71,9 +71,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
         filter(Boolean),
         debounceTime(700),
         distinctUntilChanged(),
-        tap((text) => {
-          console.log('Value enter ' + this.searchPokemon.nativeElement.value);
-
+        tap(() => {
           if (regEx.test(this.searchPokemon.nativeElement.value)) {
             this.pokemonData = this.pokemonData.filter((data) => {
               return data.id === this.searchPokemon.nativeElement.value;

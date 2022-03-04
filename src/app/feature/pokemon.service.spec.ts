@@ -33,7 +33,7 @@ describe('PokemonService', () => {
   let injector: TestBed;
 
   const baseUrl = 'https://pokeapi.co/api/v2/pokemon?limit=';
-  const maxLimit = 150;
+  const maxLimit = 151;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
